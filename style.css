@@ -1,0 +1,144 @@
+body {
+	background-color: #14171a;
+	margin: 0;
+	padding: 0;
+}
+
+* {
+	font-family: Arial, Helvetica, sans-serif;
+	color: #f5f8fa;
+	margin: 0;
+	padding: 0;
+	box-sizing: inherit;
+}
+
+.site-wrapper {
+	margin: 30px auto;
+	position: relative;
+	max-width: 600px;
+}
+
+h1 {
+	text-align: center;
+	color: #1da1f2;
+	margin: 50px 0;
+}
+
+.tweet-container {
+	position: relative;
+	display: flex;
+	border: 1px solid #f5f8fa;
+	border-radius: 12px;
+	padding: 15px;
+	margin-bottom: 50px;
+	transition: height 0.5s;
+	/* height: 0;
+	overflow: hidden; */
+}
+
+.tweet-container::after {
+	display: block;
+	content: '';
+	width: 1px;
+	height: 50px;
+	background-color: white;
+	position: absolute;
+	bottom: -50px;
+	left: 35px;
+}
+.tweet-container:last-child::after {
+	height: 0;
+}
+
+.picture {
+	width: 45px;
+	height: 45px;
+	border-radius: 50%;
+}
+
+.tweet-content {
+	margin: 0 15px;
+	width: 100%;
+}
+
+.info {
+	display: flex;
+	margin-bottom: 20px;
+}
+
+.info > * {
+	margin-right: 10px;
+}
+
+.handle,
+.dot,
+.time,
+.character-counter {
+	color: #a7a7a7;
+}
+
+.tweet {
+	background: none;
+	border: none;
+	margin-bottom: 20px;
+	resize: none;
+	font-size: 15px;
+	line-height: 20px;
+	width: 100%;
+	padding: 5px;
+}
+
+.tweet:focus {
+	outline: none !important;
+	box-shadow: 0 0 10px rgba(29, 160, 242, 0.342);
+}
+
+.icons {
+	/* width: 80%; */
+	display: flex;
+	justify-content: space-between;
+}
+
+svg {
+	height: 18px;
+	transition: all 0.1s;
+}
+
+svg path {
+	color: #a7a7a7;
+}
+
+svg:hover {
+	cursor: pointer;
+	transform: scale(1.1);
+}
+
+.delete-tweet-button {
+	color: #f5f8fa;
+	background-color: #1da1f2;
+	font-size: 0.8rem;
+	padding: 3px 10px 2px 10px;
+	border-radius: 5px;
+}
+
+.delete-tweet-button {
+	cursor: pointer;
+}
+
+.character-counter {
+	position: absolute;
+	right: 25px;
+	top: 15px;
+}
+
+.add-tweet-button {
+	background-color: #1da1f2;
+	border: none;
+	padding: 10px 40px;
+	border-radius: 12px;
+	font-size: 1rem;
+}
+
+.add-tweet-button:hover {
+	cursor: pointer;
+}
