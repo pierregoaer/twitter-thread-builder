@@ -142,7 +142,15 @@ svg:hover {
 
 .buttons {
 	display: flex;
+	flex-direction: row;
+	align-items: center;
 	justify-content: space-evenly;
+}
+
+@media (max-width: 550px) {
+	.buttons {
+		flex-direction: column;
+	}
 }
 
 .button {
@@ -153,8 +161,13 @@ svg:hover {
 	/* padding: 10px 30px; */
 	border-radius: 12px;
 	font-size: 1rem;
+	margin: 10px 0;
 }
 
 .button:hover {
 	cursor: pointer;
+}
+
+.hidden {
+	display: none;
 }

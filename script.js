@@ -1,38 +1,66 @@
 const tweetList = document.querySelector('.tweet-list');
-const firstTweet = document.querySelector('.first-tweet');
-const tweet = document.querySelector('.tweet');
 const addTweetButton = document.querySelector('.add-tweet-button');
 const deleteThreadButton = document.querySelector('.delete-thread-button');
 const saveThreadButton = document.querySelector('.save-thread-button');
 
-let id = 0;
-
-////// Claases declaration //////
+////// Classes declaration //////
 
 class Tweet {
 	characters = 0;
-	constructor(content, id) {
+	id = (Date.now() + '').slice(-10);
+	constructor(content) {
 		this.content = content;
-		this.id = id;
 	}
 }
 
 class App {
-	tweets = [];
+	tweets = JSON.parse(localStorage.getItem('tweets')) || [];
 	constructor() {
-		tweetList.addEventListener('click', this.deleteTweet.bind(this));
-		// window.addEventListener('keyup', this.countCharacters.bind(this));
-		// window.addEventListener('keydown', this.countCharacters.bind(this));
+		// Initialize the thread by checking the local storage
+		this.renderLocalStorage(this.tweets);
+
+		// Remove 'delete thread' and 'save thread' if there are no tweets on screen
+		this.displayButtons();
+
+		// Adds a new tweet to the thread
+		addTweetButton.addEventListener('click', this.addTweetForm.bind(this));
+
+		// Updates the tweet object and the character count (number and propress bar)
 		window.addEventListener('keyup', this.updateTweetContent.bind(this));
 		window.addEventListener('keydown', this.updateTweetContent.bind(this));
-		addTweetButton.addEventListener('click', this.addTweetForm.bind(this));
+
+		// Delete tweets individually
+		tweetList.addEventListener('click', this.deleteTweet.bind(this));
+
+		// Delete entire thread
 		deleteThreadButton.addEventListener('click', this.deleteThread.bind(this));
-		saveThreadButton.addEventListener('click', this.saveThread.bind(this));
+
+		// Save thread to locale storage
+		saveThreadButton.addEventListener('click', this.addToLocalStorage.bind(this));
+	}
+
+	displayButtons() {
+		const tweet = document.querySelector('.tweet-container');
+		if (tweet) {
+			deleteThreadButton.classList.remove('hidden');
+			saveThreadButton.classList.remove('hidden');
+		}
+
+		if (!tweet) {
+			deleteThreadButton.classList.add('hidden');
+			saveThreadButton.classList.add('hidden');
+		}
 	}
 
 	addTweetForm() {
-		const newTweet = new Tweet('', id);
+		const newTweet = new Tweet('');
 		this.tweets.push(newTweet);
+		this.renderTweet(newTweet);
+		this.displayButtons();
+		// id++;
+	}
+
+	renderTweet(tweet) {
 		const html = `
     <div class="tweet-container">
     <div class="character-counter">280</div>
@@ -45,7 +73,7 @@ class App {
     <div class="dot">·</div>
     <div class="time">12m</div>
     </div>
-    <textarea name="" data-id="${id}" rows="5" class="tweet" placeholder="Type your tweet here"></textarea>
+    <textarea name="" data-id="${tweet.id}" rows="5" class="tweet" placeholder="Type your tweet here">${tweet.content}</textarea>
     <div class="icons">
     <div class="icon">
     <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="comment-alt" class="svg-inline--fa fa-comment-alt fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M448 0H64C28.7 0 0 28.7 0 64v288c0 35.3 28.7 64 64 64h96v84c0 7.1 5.8 12 12 12 2.4 0 4.9-.7 7.1-2.4L304 416h144c35.3 0 64-28.7 64-64V64c0-35.3-28.7-64-64-64zm16 352c0 8.8-7.2 16-16 16H288l-12.8 9.6L208 428v-60H64c-8.8 0-16-7.2-16-16V64c0-8.8 7.2-16 16-16h384c8.8 0 16 7.2 16 16v288z"></path></svg>
@@ -67,8 +95,6 @@ class App {
     </div>
     `;
 		tweetList.insertAdjacentHTML('beforeend', html);
-		// console.log(this.tweets);
-		id++;
 	}
 
 	updateTweetContent(e) {
@@ -83,7 +109,6 @@ class App {
 		tweet.characters = activeTweet.value.length;
 		characterCounter.innerHTML = `${280 - activeTweet.value.length}`;
 		characterProgressBar.style.height = `${(activeTweet.value.length * 100) / 280}%`;
-		// console.log('After edit', this.tweets);
 	}
 
 	deleteTweet(e) {
@@ -92,18 +117,32 @@ class App {
 		const clickedTweet = clickedTweetContainer.querySelector('.tweet');
 		const tweet = this.tweets.find(tweet => tweet.id == clickedTweet.dataset.id);
 		const indexTweet = this.tweets.indexOf(tweet);
-		// console.log(`clicked: ${clickedTweet.dataset.id} | tweet: ${tweet.id} | index: ${indexTweet}`);
 
 		this.tweets.splice(indexTweet, 1);
 		clickedTweetContainer.remove();
 
-		// console.log('After deletion', this.tweets);
+		this.displayButtons();
 	}
 
 	deleteThread() {
 		const confirmation = window.confirm('Deleting a thread is irreversible, do you want to continue?');
 		if (!confirmation) return;
 		document.querySelectorAll('.tweet-container').forEach(tweet => tweet.remove());
+		this.tweets = [];
+		localStorage.removeItem('tweets');
+
+		this.displayButtons();
+	}
+
+	addToLocalStorage() {
+		localStorage.setItem('tweets', JSON.stringify(this.tweets));
+		window.alert('Your thread was saved. You can leave or refresh the page and it will still be here.');
+	}
+
+	renderLocalStorage(tweets) {
+		tweets.forEach(tweet => {
+			this.renderTweet(tweet);
+		});
 	}
 }
 
