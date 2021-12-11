@@ -33,6 +33,7 @@ class App {
 		const html = `
     <div class="tweet-container">
     <div class="character-counter">280</div>
+		<div class="character-progression-bar"></div>
     <img src="img/me.jpg" alt="" class="picture" />
     <div class="tweet-content">
     <div class="info">
@@ -73,9 +74,12 @@ class App {
 		const activeTweet = e.target;
 		const activeTweetId = activeTweet.dataset.id;
 		const tweet = this.tweets.find(tweet => tweet.id == activeTweetId);
+		const characterCounter = activeTweet.closest('.tweet-container').querySelector('.character-counter');
+		const characterProgressBar = activeTweet.closest('.tweet-container').querySelector('.character-progression-bar');
 		tweet.content = activeTweet.value;
 		tweet.characters = activeTweet.value.length;
-		activeTweet.closest('.tweet-container').querySelector('.character-counter').innerHTML = `${280 - activeTweet.value.length}`;
+		characterCounter.innerHTML = `${280 - activeTweet.value.length}`;
+		characterProgressBar.style.height = `${(activeTweet.value.length * 100) / 280}%`;
 		// console.log('After edit', this.tweets);
 	}
 
