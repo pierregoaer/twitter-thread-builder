@@ -32,8 +32,8 @@ h1 {
 	padding: 15px;
 	margin-bottom: 50px;
 	transition: height 0.5s;
-	/* height: 0;
-	overflow: hidden; */
+	/* height: 0; */
+	overflow: hidden;
 }
 
 .tweet-container::after {
@@ -129,6 +129,15 @@ svg:hover {
 	position: absolute;
 	right: 25px;
 	top: 15px;
+}
+
+.character-progression-bar {
+	position: absolute;
+	height: 0%;
+	width: 6px;
+	top: 0;
+	right: 0;
+	background-color: #1da1f2;
 }
 
 .add-tweet-button {
