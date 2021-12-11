@@ -3,6 +3,7 @@ const tweetList = document.querySelector('.tweet-list');
 const firstTweet = document.querySelector('.first-tweet');
 const tweet = document.querySelector('.tweet');
 const characterCounter = document.querySelector('.character-counter');
+const characterProgressionBar = document.querySelector('.character-progression-bar');
 
 let id = 0;
 
