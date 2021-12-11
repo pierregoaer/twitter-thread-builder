@@ -1,9 +1,9 @@
-const addTweetButton = document.querySelector('.add-tweet-button');
 const tweetList = document.querySelector('.tweet-list');
 const firstTweet = document.querySelector('.first-tweet');
 const tweet = document.querySelector('.tweet');
-const characterCounter = document.querySelector('.character-counter');
-const characterProgressionBar = document.querySelector('.character-progression-bar');
+const addTweetButton = document.querySelector('.add-tweet-button');
+const deleteThreadButton = document.querySelector('.delete-thread-button');
+const saveThreadButton = document.querySelector('.save-thread-button');
 
 let id = 0;
 
@@ -20,12 +20,14 @@ class Tweet {
 class App {
 	tweets = [];
 	constructor() {
-		addTweetButton.addEventListener('click', this.addTweetForm.bind(this));
 		tweetList.addEventListener('click', this.deleteTweet.bind(this));
 		// window.addEventListener('keyup', this.countCharacters.bind(this));
 		// window.addEventListener('keydown', this.countCharacters.bind(this));
 		window.addEventListener('keyup', this.updateTweetContent.bind(this));
 		window.addEventListener('keydown', this.updateTweetContent.bind(this));
+		addTweetButton.addEventListener('click', this.addTweetForm.bind(this));
+		deleteThreadButton.addEventListener('click', this.deleteThread.bind(this));
+		saveThreadButton.addEventListener('click', this.saveThread.bind(this));
 	}
 
 	addTweetForm() {
@@ -96,15 +98,13 @@ class App {
 		clickedTweetContainer.remove();
 
 		// console.log('After deletion', this.tweets);
-		// When deleting, need to change the id of each tweet? Not sure
 	}
 
-	// countCharacters(e) {
-	// 	if (!e.target.classList.contains('tweet')) return;
-	// 	const tweet = e.target;
-	// 	// console.log(tweet.dataset.id);
-	// 	tweet.closest('.tweet-container').querySelector('.character-counter').innerHTML = `${280 - tweet.value.length}`;
-	// }
+	deleteThread() {
+		const confirmation = window.confirm('Deleting a thread is irreversible, do you want to continue?');
+		if (!confirmation) return;
+		document.querySelectorAll('.tweet-container').forEach(tweet => tweet.remove());
+	}
 }
 
 const app = new App();

@@ -140,14 +140,21 @@ svg:hover {
 	background-color: #1da1f2;
 }
 
-.add-tweet-button {
+.buttons {
+	display: flex;
+	justify-content: space-evenly;
+}
+
+.button {
 	background-color: #1da1f2;
 	border: none;
-	padding: 10px 40px;
+	width: 160px;
+	height: 40px;
+	/* padding: 10px 30px; */
 	border-radius: 12px;
 	font-size: 1rem;
 }
 
-.add-tweet-button:hover {
+.button:hover {
 	cursor: pointer;
 }
