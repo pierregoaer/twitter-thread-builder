@@ -3,6 +3,11 @@ const addTweetButton = document.querySelector('.add-tweet-button');
 const deleteThreadButton = document.querySelector('.delete-thread-button');
 const saveThreadButton = document.querySelector('.save-thread-button');
 
+const infoModalButton = document.querySelector('.info-modal-button');
+const infoModal = document.querySelector('.info-modal');
+const closeInfoModalButton = document.querySelector('.close-info-modal-button');
+const modalOverlay = document.querySelector('.modal-overlay');
+
 ////// Classes declaration //////
 
 class Tweet {
@@ -37,6 +42,12 @@ class App {
 
 		// Save thread to locale storage
 		saveThreadButton.addEventListener('click', this.addToLocalStorage.bind(this));
+
+		// Display/hide modal window
+		infoModalButton.addEventListener('click', this.openModal);
+		closeInfoModalButton.addEventListener('click', this.closeModal);
+		modalOverlay.addEventListener('click', this.closeModal);
+		document.addEventListener('keydown', this.handleEscape.bind(this));
 	}
 
 	displayButtons() {
@@ -143,6 +154,21 @@ class App {
 		tweets.forEach(tweet => {
 			this.renderTweet(tweet);
 		});
+	}
+
+	openModal() {
+		infoModal.classList.remove('hidden');
+		modalOverlay.classList.remove('hidden');
+	}
+
+	closeModal() {
+		infoModal.classList.add('hidden');
+		modalOverlay.classList.add('hidden');
+	}
+
+	handleEscape(e) {
+		// if (e.key === 'Escape' && infoModal.classList.contains('hidden') && !form.classList.contains('hidden')) this._hideForm();
+		if (e.key === 'Escape' && !infoModal.classList.contains('hidden')) this.closeModal();
 	}
 }
 

@@ -10,6 +10,9 @@
 		<title>Build Your Twitter Thread</title>
 	</head>
 	<body>
+		<div class="info-modal-button">
+      <img src="img/info-offwhite.png" />
+    </div>
 		<div class="site-wrapper">
 			<h1>Welcome to Twitter Thread Builder</h1>
 			<div class="tweet-list">
@@ -51,6 +54,26 @@
 				<button class="button save-thread-button hidden">✅ Save Thread</button>
 			</div>
 		</div>
+		<div class="info-modal hidden">
+      <button class="close-info-modal-button">&times;</button>
+      <h1>Welcome to Twitter Thread Builder</h1>
+      <p>This Twitter Thread Builder is a project I had in mind for quite some time. Twitter is my main source of information and education on a variety of topic. Tweets being litmited to 280 characters, users have started using threads to be able to tell longer stories, stories that wouldn't fit into 280 characters.</p>
+      <p>This project was a lot of fun to build as it represents for me a real tool that I will now be able to leverage when creating my own threads to post on Twitter. It is made of 2 main classes:</p>
+        <ul>
+          <li><strong>An App class:</strong> this is the main class that makes the entire app work. It creates and executes all the different methods needed.</li>
+        <li><strong>A Tweet class:</strong>The Tweet class is invoked when users add new tweets to a thread. This class defines the content of the tweet, its unique ID as well as the length of the tweet.</li>
+        </ul>
+        <p class="technologies-used">Technologies used:</p>
+        <div class="technologies-used-icons">
+          <img src="img/html.png" alt="" />
+          <img src="img/css.png" alt="" />
+          <img src="img/javascript.png" alt="" />
+        </div>
+        <h2>See the code on GitHub</h2>
+        <a href="https://github.com/pierregoaer/twitter-thread-builder.git" target="_blank"><i class="fab fa-github"></i></a>
+      </p>
+    </div>
+    <div class="modal-overlay hidden"></div>
 	</body>
 	<script src="script.js"></script>
 </html>
