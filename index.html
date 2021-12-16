@@ -60,8 +60,17 @@
       <p>This Twitter Thread Builder is a project I had in mind for quite some time. Twitter is my main source of information and education on a variety of topic. Tweets being litmited to 280 characters, users have started using threads to be able to tell longer stories, stories that wouldn't fit into 280 characters.</p>
       <p>This project was a lot of fun to build as it represents for me a real tool that I will now be able to leverage when creating my own threads to post on Twitter. It is made of 2 main classes:</p>
         <ul>
-          <li><strong>An App class:</strong> this is the main class that makes the entire app work. It creates and executes all the different methods needed.</li>
-        <li><strong>A Tweet class:</strong>The Tweet class is invoked when users add new tweets to a thread. This class defines the content of the tweet, its unique ID as well as the length of the tweet.</li>
+          <li><strong>An App class:</strong> this is the main class that makes the entire app work. It creates and executes all the different methods needed:
+					<ul>
+						<li><strong>displayButtons()</strong>: this methods displays or removes the buttons based on the thread size. If the thread is empty, 'Save thread' and 'Delete thread' are hidden.</li>
+						<li><strong>addTweetForm()</strong>: this is the main methods that allows to add tweets to the thread. When invoked, a new tweet object is created with the Tweet class, pushed in the Tweets array and the renderTweet() method is called.</li>
+						<li><strong>renderTweet()</strong>: this methods creates creates and adds to the page a new HTML tweet element.</li>
+						<li><strong>updateTweetContent()</strong>: this method is the most important one. It is called with an event handler listening for key up and key down. If a text area is active, this method updates the tweet object with the new content of the text area, updates the character counter, and updates the character progression bar on the right side.</li>
+						<li><strong>deleteTweet()</strong>: when clicking the delete tweet button, this methods removes the html element element from the page, and removes the tweet from the tweets array.</li>
+						<li><strong>deleteThread()</strong>: this methods selects every tweet on the page and applies the deleteTweet() method to it. It also set the tweets array to an empty array. Being irreversible, this methods starts with a window.confirm to make sure the user actually wants to delete the thread.</li>
+						<li><strong>addToLocalStorage()</strong>: this method is invoked when the user clicks on the "save thread" button. It saves the tweets array to the local storage. When the page reloads, the methods renderLocalStorage is invoked to render all tweets on the page.</li>
+					</ul></li>
+        <li><strong>A Tweet class:</strong> this class is invoked when users add new tweets to a thread. This class defines the content of the tweet, its unique ID as well as the length of the tweet.</li>
         </ul>
         <p class="technologies-used">Technologies used:</p>
         <div class="technologies-used-icons">
